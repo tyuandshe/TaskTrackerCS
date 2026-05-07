@@ -1,37 +1,41 @@
 # TaskTrackerCS
+纯 C# WinForms 任务追踪器，单文件编译，无任何第三方依赖。
 
-绾?C# WinForms 浠诲姟杩借釜鍣紝鍗曟枃浠剁紪璇戯紝鏃犱换浣曠涓夋柟渚濊禆銆?
-## 鍔熻兘鐗规€?
-- **娣辫壊涓婚**锛氱幇浠ｅ寲鏆楄壊 UI锛屾姢鐪奸厤鑹?- **浼樺厛绾у垎绫?*锛氶珮 / 涓?/ 浣?涓夋。锛岄鑹插尯鍒?- **鎴鏃堕棿**锛氭敮鎸佽缃埅姝㈡椂闂达紝瀹炴椂鍊掕鏃舵樉绀?- **鎵樼洏杩愯**锛氭渶灏忓寲鍒扮郴缁熸墭鐩橈紝涓嶅崰鐢ㄤ换鍔℃爮
-- **瓒呮椂鎻愰啋**锛氳窛鎴 1 鍒嗛挓鏃剁獥鍙ｉ棯鐑佹彁绀?- **鏁版嵁鎸佷箙鍖?*锛欼NI 鏂囦欢瀛樺偍锛坄save.ini`锛夛紝鍦?EXE 鍚岀洰褰曚笅
-- **闆朵緷璧?*锛氫粎浣跨敤 .NET Framework 鍐呯疆搴擄紙System.Windows.Forms.dll, System.Drawing.dll锛?
-## 缂栬瘧
+## 功能特性
+- **深色主题**：现代化暗色 UI，护眼配色
+- **优先级分类**：高 / 中 / 低 三档，颜色区分
+- **截止时间**：支持设置截止时间，实时倒计时显示
+- **托盘运行**：最小化到系统托盘，不占用任务栏
+- **超时提醒**：距截止 1 分钟时窗口闪烁提示
+- **数据持久化**：INI 文件存储（`save.ini`），在 EXE 同目录下
+- **零依赖**：仅使用 .NET Framework 内置库（System.Windows.Forms.dll, System.Drawing.dll）
 
+## 编译
 ```batch
 C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe /nologo /codepage:65001 /target:winexe /out:TaskTrackerCS.exe /reference:System.Windows.Forms.dll /reference:System.Drawing.dll TaskTrackerCS.cs
 ```
+或使用已编译的 `TaskTrackerCS.exe`（见 Releases）。
 
-鎴栦娇鐢ㄥ凡缂栬瘧鐨?`TaskTrackerCS.exe`锛堣 Releases锛夈€?
-## 浣跨敤璇存槑
+## 使用说明
+1. 运行 `TaskTrackerCS.exe`
+2. 首次运行会在同目录生成 `save.ini` 保存任务数据
+3. 输入任务名称 → 回车或点击「添加任务」
+4. 可选：设置截止时间和优先级
+5. 点击「最小化」按钮或标题栏右上角 `―` 隐藏到托盘
+6. 左键点击托盘图标恢复窗口
 
-1. 杩愯 `TaskTrackerCS.exe`
-2. 棣栨杩愯浼氬湪鍚岀洰褰曠敓鎴?`save.ini` 淇濆瓨浠诲姟鏁版嵁
-3. 杈撳叆浠诲姟鍚嶇О 鈫?鍥炶溅鎴栫偣鍑汇€屾坊鍔犱换鍔°€?4. 鍙€夛細璁剧疆鎴鏃堕棿鍜屼紭鍏堢骇
-5. 鐐瑰嚮銆屾渶灏忓寲銆嶆寜閽垨鏍囬鏍忓彸涓婅 `鈥昤 闅愯棌鍒版墭鐩?6. 宸﹂敭鐐瑰嚮鎵樼洏鍥炬爣鎭㈠绐楀彛
+## 数据文件
+|    文件             |       说明                    |
+|---------------------|-------------------------------|
+| `TaskTrackerCS.exe` | 主程序                        |
+| `save.ini`          | 任务数据（自动生成，勿手动编辑） |
+| `debug.log`         | 调试日志（可选）               |
 
-## 鏁版嵁鏂囦欢
-
-| 鏂囦欢 | 璇存槑 |
-|------|------|
-| `TaskTrackerCS.exe` | 涓荤▼搴?|
-| `save.ini` | 浠诲姟鏁版嵁锛堣嚜鍔ㄧ敓鎴愶紝鍕挎墜鍔ㄧ紪杈戯級 |
-| `debug.log` | 璋冭瘯鏃ュ織锛堝彲閫夛級 |
-
-> 鈿狅笍 `save.ini` 鍖呭惈涓汉浠诲姟鏁版嵁锛屽厠闅嗕粨搴撳悗璇峰嬁鎻愪氦姝ゆ枃浠躲€?
-## 鎶€鏈粏鑺?
+## 技术细节
 - .NET Framework 4.0 + C# WinForms
-- Win32 API锛圥/Invoke锛夛細`user32.dll` 绐楀彛缃《銆侀棯鐑?- 甯冨眬锛氭樉寮?`SetBounds()` 缁濆瀹氫綅锛堥潪 Dock/Anchor锛?- 瀛樺偍锛欼NI 绾枃鏈紝鏃?System.Web.Extensions 渚濊禆
+- Win32 API（P/Invoke）：`user32.dll` 窗口置顶、闪烁
+- 布局：显式 `SetBounds()` 绝对定位（非 Dock/Anchor）
+- 存储：INI 纯文本，无 System.Web.Extensions 依赖
 
 ## License
-
 MIT
