@@ -1,0 +1,16 @@
+# TaskTrackerCS specific
+save.ini
+debug.log
+
+# .NET
+*.exe
+*.dll
+*.pdb
+*.user
+*.suo
+obj/
+bin/
+
+# OS
+.DS_Store
+Thumbs.db
